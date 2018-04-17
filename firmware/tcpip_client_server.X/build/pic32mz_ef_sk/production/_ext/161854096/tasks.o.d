@@ -11,4 +11,4 @@ build/pic32mz_ef_sk/production/_ext/161854096/tasks.o:  \
  ../../../../../../third_party/rtos/FreeRTOS/Source/include/list.h  \
  ../../../../../../third_party/rtos/FreeRTOS/Source/include/timers.h  \
  ../../../../../../third_party/rtos/FreeRTOS/Source/include/task.h  \
- ../../../../../../third_party/rtos/FreeRTOS/Source/include/StackMacros.h 
+ ../../../../../../third_party/rtos/FreeRTOS/Source/include/stack_macros.h 

@@ -66,6 +66,21 @@
         <itemPath>../src/app3.h</itemPath>
         <itemPath>../src/app4.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f4" displayName="AWS_MQTT" projectFiles="true">
+        <logicalFolder name="f1" displayName="private" projectFiles="true">
+          <itemPath>../../../../../../third_party/amazon-freertos/lib/include/private/aws_doubly_linked_list.h</itemPath>
+          <itemPath>../../../../../../third_party/amazon-freertos/lib/include/private/aws_mqtt_agent_config_defaults.h</itemPath>
+          <itemPath>../../../../../../third_party/amazon-freertos/lib/include/private/aws_mqtt_buffer.h</itemPath>
+          <itemPath>../../../../../../third_party/amazon-freertos/lib/include/private/aws_mqtt_config_defaults.h</itemPath>
+          <itemPath>../../../../../../third_party/amazon-freertos/lib/include/private/aws_mqtt_lib_private.c</itemPath>
+        </logicalFolder>
+        <itemPath>../../../../../../third_party/amazon-freertos/lib/include/aws_mqtt_agent.h</itemPath>
+        <itemPath>../../../../../../third_party/amazon-freertos/lib/include/aws_mqtt_lib.h</itemPath>
+        <itemPath>../src/aws_config/aws_bufferpool_config.h</itemPath>
+        <itemPath>../src/aws_config/aws_mqtt_agent_config.h</itemPath>
+        <itemPath>../src/aws_config/aws_mqtt_config.h</itemPath>
+        <itemPath>../src/aws_config/aws_secure_sockets_config.h</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="crypto" projectFiles="true">
           <logicalFolder name="f1" displayName="src" projectFiles="true">
@@ -585,6 +600,10 @@
         <itemPath>../src/mpfs_img2.c</itemPath>
         <itemPath>../src/main.c</itemPath>
       </logicalFolder>
+      <logicalFolder name="f4" displayName="AWS_MQTT" projectFiles="true">
+        <itemPath>../../../../../../third_party/amazon-freertos/lib/mqtt/aws_mqtt_agent.c</itemPath>
+        <itemPath>../../../../../../third_party/amazon-freertos/lib/mqtt/aws_mqtt_lib.c</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f7" displayName="arch" projectFiles="true">
           <logicalFolder name="f1" displayName="arm" projectFiles="true">
@@ -797,6 +816,8 @@
     <Elem>..\src\pic32mz_ec_sk</Elem>
     <Elem>..\src\system_config\pic32mz_ec_sk</Elem>
     <Elem>../../../../../v1_xx</Elem>
+    <Elem>../../../../../../third_party/amazon-freertos/lib/mqtt</Elem>
+    <Elem>../../../../../../third_party/amazon-freertos/lib/include</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
