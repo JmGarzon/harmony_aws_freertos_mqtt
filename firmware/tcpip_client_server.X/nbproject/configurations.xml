@@ -65,6 +65,9 @@
         <itemPath>../src/app2.h</itemPath>
         <itemPath>../src/app3.h</itemPath>
         <itemPath>../src/app4.h</itemPath>
+        <itemPath>C:/microchip/harmony/v2_05_01/dev/rtos/freertos/harmony_aws_freertos_mqtt/firmware/src/aws_config/aws_secure_sockets_config.h</itemPath>
+        <itemPath>C:/microchip/harmony/v2_05_01/dev/rtos/freertos/harmony_aws_freertos_mqtt/firmware/src/aws_config/aws_bufferpool_config.h</itemPath>
+        <itemPath>C:/microchip/harmony/v2_05_01/dev/rtos/freertos/harmony_aws_freertos_mqtt/firmware/src/aws_config/aws_mqtt_agent_config.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="AWS_MQTT" projectFiles="true">
         <logicalFolder name="f1" displayName="private" projectFiles="true">
@@ -72,14 +75,9 @@
           <itemPath>../../../../../../third_party/amazon-freertos/lib/include/private/aws_mqtt_agent_config_defaults.h</itemPath>
           <itemPath>../../../../../../third_party/amazon-freertos/lib/include/private/aws_mqtt_buffer.h</itemPath>
           <itemPath>../../../../../../third_party/amazon-freertos/lib/include/private/aws_mqtt_config_defaults.h</itemPath>
-          <itemPath>../../../../../../third_party/amazon-freertos/lib/include/private/aws_mqtt_lib_private.c</itemPath>
         </logicalFolder>
-        <itemPath>../../../../../../third_party/amazon-freertos/lib/include/aws_mqtt_agent.h</itemPath>
-        <itemPath>../../../../../../third_party/amazon-freertos/lib/include/aws_mqtt_lib.h</itemPath>
-        <itemPath>../src/aws_config/aws_bufferpool_config.h</itemPath>
-        <itemPath>../src/aws_config/aws_mqtt_agent_config.h</itemPath>
-        <itemPath>../src/aws_config/aws_mqtt_config.h</itemPath>
-        <itemPath>../src/aws_config/aws_secure_sockets_config.h</itemPath>
+        <itemPath>C:/microchip/harmony/v2_05_01/dev/rtos/freertos/harmony_aws_freertos_mqtt/firmware/src/aws_config/aws_mqtt_config.h</itemPath>
+        <itemPath>C:/microchip/harmony/v2_05_01/third_party/amazon-freertos/lib/include/aws_mqtt_lib.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="crypto" projectFiles="true">
@@ -820,6 +818,9 @@
     <Elem>../../../../../../third_party/amazon-freertos/lib/mqtt</Elem>
     <Elem>../../../../../../third_party/amazon-freertos/lib/include</Elem>
     <Elem>../../../../../../third_party/amazon-freertos/lib/secure_sockets/portable/microchip/curiosity_pic32mzef</Elem>
+    <Elem>../src/aws_config</Elem>
+    <Elem>C:/microchip/harmony/v2_05_01/third_party/amazon-freertos/lib/include</Elem>
+    <Elem>C:/microchip/harmony/v2_05_01/third_party/amazon-freertos/lib/include/private</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -1780,7 +1781,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../../../../framework;/framework;/framework/system;../../../../../../bsp/pic32mz_ec_sk;/framework;../src;../src/system_config/pic32mz_ec_sk;../src/pic32mz_ec_sk;../../../../../../framework;../src/system_config/pic32mz_ec_sk/framework;../src/system_config/pic32mz_ec_sk/bsp;../../../../../../third_party/rtos/FreeRTOS/Source/include;../../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MZ"/>
+                  value="../../../../framework;/framework;/framework/system;../../../../../../bsp/pic32mz_ec_sk;/framework;../src;../src/system_config/pic32mz_ec_sk;../src/pic32mz_ec_sk;../../../../../../framework;../src/system_config/pic32mz_ec_sk/framework;../src/system_config/pic32mz_ec_sk/bsp;../../../../../../third_party/rtos/FreeRTOS/Source/include;../../../../../../third_party/rtos/FreeRTOS/Source/portable/MPLAB/PIC32MZ;../../../../../../third_party/amazon-freertos/lib/include;../../../../../../third_party/amazon-freertos/lib/include/private;C:\microchip\harmony\v2_05_01\third_party\amazon-freertos\lib\include;C:\microchip\harmony\v2_05_01\third_party\amazon-freertos\lib\include\private;..\src\aws_config"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -1984,7 +1985,7 @@
         <property key="memories.configurationmemory2" value="true"/>
         <property key="memories.dataflash" value="true"/>
         <property key="memories.eeprom" value="true"/>
-        <property key="memories.exclude.configurationmemory" value="true"/>
+        <property key="memories.exclude.configurationmemory" value="false"/>
         <property key="memories.flashdata" value="true"/>
         <property key="memories.id" value="true"/>
         <property key="memories.instruction.ram.ranges"

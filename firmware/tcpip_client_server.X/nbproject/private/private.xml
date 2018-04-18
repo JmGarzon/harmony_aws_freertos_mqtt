@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/microchip/harmony/v2_05_01/third_party/amazon-freertos/lib/mqtt/aws_mqtt_agent.c</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/third_party/amazon-freertos/lib/include/aws_mqtt_agent.h</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/third_party/amazon-freertos/lib/include/private/aws_mqtt_buffer.h</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/third_party/amazon-freertos/lib/mqtt/aws_mqtt_lib.c</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/third_party/amazon-freertos/lib/include/private/aws_mqtt_lib_private.c</file>
+        </group>
+    </open-files>
+</project-private>
