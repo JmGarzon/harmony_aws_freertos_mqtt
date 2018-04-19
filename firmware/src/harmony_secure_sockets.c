@@ -27,6 +27,11 @@
 #include "aws_tls.h"
 #include "task.h"
 
+
+// addditional includes.
+
+#include <string.h>             // string.h was not included by default?
+
 /* Internal context structure. */
 typedef struct SSOCKETContext
 {
@@ -55,8 +60,9 @@ static BaseType_t prvNetworkSend( void * pvContext,
 {
     SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) pvContext; /*lint !e9087 cast used for portability. */
 
-    return FreeRTOS_send( pxContext->xSocket, pucData, xDataLength, pxContext->xSendFlags );    // Send data to a TCP Socket 
+    //return FreeRTOS_send( pxContext->xSocket, pucData, xDataLength, pxContext->xSendFlags );    // Send data to a TCP Socket 
 }                                                                                               // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/send.html
+    return send( pxContext->xSocket, pucData, xDataLength, pxContext->xSendFlags );
 /*-----------------------------------------------------------*/
 
 /*
@@ -68,7 +74,9 @@ static BaseType_t prvNetworkRecv( void * pvContext,
 {
     SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) pvContext; /*lint !e9087 cast used for portability. */
 
-    return FreeRTOS_recv( pxContext->xSocket, pucReceiveBuffer, xReceiveLength, pxContext->xRecvFlags );
+    //return FreeRTOS_recv( pxContext->xSocket, pucReceiveBuffer, xReceiveLength, pxContext->xRecvFlags ); // receive a packete from a TCP socket
+                                                                                                         // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/recv.html
+    return recv( pxContext->xSocket, pucReceiveBuffer, xReceiveLength, pxContext->xRecvFlags );
 }
 /*-----------------------------------------------------------*/
 
@@ -118,8 +126,8 @@ int32_t SOCKETS_Close( Socket_t xSocket )
         }
 
         /* Close the underlying socket handle. */
-        ( void ) FreeRTOS_closesocket( pxContext->xSocket );
-
+        //( void ) FreeRTOS_closesocket( pxContext->xSocket );  // Close a socket. https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/close.html
+        ( void ) closesocket( pxContext->xSocket ); 
         /* Free the context. */
         vPortFree( pxContext );
     }
@@ -177,7 +185,9 @@ int32_t SOCKETS_Connect( Socket_t xSocket,
 
 uint32_t SOCKETS_GetHostByName( const char * pcHostName )
 {
-    return FreeRTOS_gethostbyname( pcHostName );
+    //return FreeRTOS_gethostbyname( pcHostName );    // Performs a Domain Name System (DNS) lookup on a host name
+                                                    // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TP/API/gethostbyname.html
+    return gethostbyname( pcHostName ); 
 }
 /*-----------------------------------------------------------*/
 
@@ -330,7 +340,12 @@ int32_t SOCKETS_SetSockOpt( Socket_t xSocket,
 
         case SOCKETS_SO_NONBLOCK:
             xTimeout = 0;
-            lStatus = FreeRTOS_setsockopt( pxContext->xSocket,
+   //         lStatus = FreeRTOS_setsockopt( pxContext->xSocket,
+   //                                        lLevel,
+   //                                        SOCKETS_SO_RCVTIMEO,
+   //                                        &xTimeout,
+   //                                        sizeof( xTimeout ) );
+            lStatus =   setsockopt( pxContext->xSocket,
                                            lLevel,
                                            SOCKETS_SO_RCVTIMEO,
                                            &xTimeout,
@@ -338,7 +353,13 @@ int32_t SOCKETS_SetSockOpt( Socket_t xSocket,
 
             if( lStatus == SOCKETS_ERROR_NONE )
             {
-                lStatus = FreeRTOS_setsockopt( pxContext->xSocket,
+                //lStatus = FreeRTOS_setsockopt( pxContext->xSocket,
+                //                               lLevel,
+                //                               SOCKETS_SO_SNDTIMEO,
+                 //                              &xTimeout,
+                 //                              sizeof( xTimeout ) );
+                
+                lStatus = setsockopt( pxContext->xSocket,
                                                lLevel,
                                                SOCKETS_SO_SNDTIMEO,
                                                &xTimeout,
@@ -357,7 +378,12 @@ int32_t SOCKETS_SetSockOpt( Socket_t xSocket,
                 xTimeout = portMAX_DELAY;
             }
 
-            lStatus = FreeRTOS_setsockopt( pxContext->xSocket,
+            //lStatus = FreeRTOS_setsockopt( pxContext->xSocket,
+            //                               lLevel,
+            //                               lOptionName,
+            //                               &xTimeout,
+            //                               xOptionLength );
+            lStatus = setsockopt( pxContext->xSocket,
                                            lLevel,
                                            lOptionName,
                                            &xTimeout,
@@ -365,7 +391,12 @@ int32_t SOCKETS_SetSockOpt( Socket_t xSocket,
             break;
 
         default:
-            lStatus = FreeRTOS_setsockopt( pxContext->xSocket,
+            //lStatus = FreeRTOS_setsockopt( pxContext->xSocket,
+            //                               lLevel,
+            //                               lOptionName,
+            //                               pvOptionValue,
+            //                              xOptionLength );
+            lStatus = setsockopt( pxContext->xSocket,
                                            lLevel,
                                            lOptionName,
                                            pvOptionValue,
@@ -382,6 +413,9 @@ int32_t SOCKETS_Shutdown( Socket_t xSocket,
 {
     SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) xSocket; /*lint !e9087 cast used for portability. */
 
+    //return FreeRTOS_shutdown( pxContext->xSocket, ( BaseType_t ) ulHow );
+    // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/shutdown.html
+    // Disable reads and writes on a connected TCP socket. A connected TCP socket must be gracefully shut down before it can be closed.
     return FreeRTOS_shutdown( pxContext->xSocket, ( BaseType_t ) ulHow );
 }
 /*-----------------------------------------------------------*/
@@ -396,7 +430,8 @@ Socket_t SOCKETS_Socket( int32_t lDomain,
 
     /* Create the wrapped socket. */
     if( FREERTOS_INVALID_SOCKET == /*lint !e923 cast used for portability. */
-        ( xSocket = FreeRTOS_socket( lDomain, lType, lProtocol ) ) )
+    //    ( xSocket = FreeRTOS_socket( lDomain, lType, lProtocol ) ) )
+        ( xSocket = socket( lDomain, lType, lProtocol ) ) )
     {
         lStatus = SOCKETS_SOCKET_ERROR;
     }
