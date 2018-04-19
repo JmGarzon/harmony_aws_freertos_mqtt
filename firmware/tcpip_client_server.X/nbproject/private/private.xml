@@ -6,6 +6,10 @@
             <file>file:/C:/microchip/harmony/v2_05_01/dev/rtos/freertos/harmony_aws_freertos_mqtt/firmware/src/harmony_secure_sockets.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/third_party/amazon-freertos/lib/mqtt/aws_mqtt_agent.c</file>
             <file>file:/C:/microchip/harmony/v2_05_01/third_party/rtos/FreeRTOS/Source/queue.c</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/third_party/rtos/FreeRTOS/Source/include/queue.h</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/dev/rtos/freertos/harmony_aws_freertos_mqtt/firmware/src/system_config/pic32mx_eth_sk/FreeRTOSConfig.h</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/third_party/rtos/FreeRTOS/Source/include/FreeRTOS.h</file>
+            <file>file:/C:/microchip/harmony/v2_05_01/dev/rtos/freertos/harmony_aws_freertos_mqtt/firmware/src/aws_config/FreeRTOSConfig.h</file>
         </group>
     </open-files>
 </project-private>

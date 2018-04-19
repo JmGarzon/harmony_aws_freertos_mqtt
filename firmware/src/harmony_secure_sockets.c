@@ -60,9 +60,10 @@ static BaseType_t prvNetworkSend( void * pvContext,
 {
     SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) pvContext; /*lint !e9087 cast used for portability. */
 
-    //return FreeRTOS_send( pxContext->xSocket, pucData, xDataLength, pxContext->xSendFlags );    // Send data to a TCP Socket 
-}                                                                                               // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/send.html
+    //return FreeRTOS_send( pxContext->xSocket, pucData, xDataLength, pxContext->xSendFlags );    // Send data to a TCP Socket                                                                                              // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/send.html
     return send( pxContext->xSocket, pucData, xDataLength, pxContext->xSendFlags );
+    
+} 
 /*-----------------------------------------------------------*/
 
 /*
