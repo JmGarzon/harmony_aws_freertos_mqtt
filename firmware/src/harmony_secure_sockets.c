@@ -26,6 +26,7 @@
 #include "aws_secure_sockets.h"
 #include "aws_tls.h"
 #include "task.h"
+#include "berkeley_api.h"
 
 
 // addditional includes.
