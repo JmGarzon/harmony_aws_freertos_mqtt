@@ -496,6 +496,7 @@
         <itemPath>../../../../../../third_party/rtos/FreeRTOS/Source/include/timers.h</itemPath>
         <itemPath>../../../../../../third_party/rtos/FreeRTOS/Source/include/deprecated_definitions.h</itemPath>
         <itemPath>../../../../../../third_party/rtos/FreeRTOS/Source/include/mpu_prototypes.h</itemPath>
+        <itemPath>C:/microchip/harmony/v2_05_01/dev/rtos/freertos/harmony_aws_freertos_mqtt/firmware/src/aws_config/FreeRTOSConfig.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="f4" displayName="Important Files" projectFiles="true">
@@ -597,11 +598,11 @@
         <itemPath>../src/custom_http_app.c</itemPath>
         <itemPath>../src/mpfs_img2.c</itemPath>
         <itemPath>../src/main.c</itemPath>
+        <itemPath>C:/microchip/harmony/v2_05_01/dev/rtos/freertos/harmony_aws_freertos_mqtt/firmware/src/harmony_secure_sockets.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f4" displayName="AWS_MQTT" projectFiles="true">
         <itemPath>../../../../../../third_party/amazon-freertos/lib/mqtt/aws_mqtt_agent.c</itemPath>
         <itemPath>../../../../../../third_party/amazon-freertos/lib/mqtt/aws_mqtt_lib.c</itemPath>
-        <itemPath>../../../../../../third_party/amazon-freertos/lib/secure_sockets/portable/microchip/curiosity_pic32mzef/aws_secure_sockets.c</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="framework" projectFiles="true">
         <logicalFolder name="f7" displayName="arch" projectFiles="true">
