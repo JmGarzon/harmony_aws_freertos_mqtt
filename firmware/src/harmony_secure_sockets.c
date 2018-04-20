@@ -15,6 +15,28 @@
  */
 /* ************************************************************************** */
 
+/** these extras might be moved to a seperate .h */
+
+#define socklen_t uint32_t
+#include <stdint.h>
+
+
+struct freertos_sockaddr
+{
+	/* _HT_ On 32- and 64-bit architectures, the addition of the two uint8_t
+	fields doesn't make the structure bigger, due to alignment.
+	The fields are inserted as a preparation for IPv6. */
+
+	/* sin_len and sin_family not used in the IPv4-only release. */
+	uint8_t sin_len;		/* length of this structure. */
+	uint8_t sin_family;		/* FREERTOS_AF_INET. */
+	uint16_t sin_port;
+	uint32_t sin_addr;
+};
+
+
+/*  */
+
 
 
 /* FreeRTOS includes. */
@@ -27,6 +49,8 @@
 #include "aws_tls.h"
 #include "task.h"
 #include "berkeley_api.h"
+
+
 
 
 // addditional includes.
@@ -56,29 +80,38 @@ typedef struct SSOCKETContext
  * @brief Network send callback.
  */
 static BaseType_t prvNetworkSend( void * pvContext,
-                                  const unsigned char * pucData,
+                                //  const unsigned char * pucData,
+                                    const void *pvBuffer,
                                   size_t xDataLength )
 {
     SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) pvContext; /*lint !e9087 cast used for portability. */
 
     //return FreeRTOS_send( pxContext->xSocket, pucData, xDataLength, pxContext->xSendFlags );    // Send data to a TCP Socket                                                                                              // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/send.html
-    return send( pxContext->xSocket, pucData, xDataLength, pxContext->xSendFlags );
+    return send( (int) pxContext->xSocket, pvBuffer, xDataLength, pxContext->xSendFlags );  // Berkely expects an int not a pointer
+                                                                                           // pucData 
+    
     
 } 
 /*-----------------------------------------------------------*/
+// typedef int16_t SOCKET;   //Socket descriptor
+// int     send( SOCKET s, const char* buf, int len, int flags );
+// // BaseType_t FreeRTOS_send( Socket_t xSocket, const void *pvBuffer, size_t uxDataLength, BaseType_t xFlags );
+// pointer of type voide
+
 
 /*
  * @brief Network receive callback.
  */
 static BaseType_t prvNetworkRecv( void * pvContext,
-                                  unsigned char * pucReceiveBuffer,
+                                  //unsigned char * pucReceiveBuffer,
+                                  void *pucReceiveBuffer,
                                   size_t xReceiveLength )
 {
     SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) pvContext; /*lint !e9087 cast used for portability. */
 
     //return FreeRTOS_recv( pxContext->xSocket, pucReceiveBuffer, xReceiveLength, pxContext->xRecvFlags ); // receive a packete from a TCP socket
                                                                                                          // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/recv.html
-    return recv( pxContext->xSocket, pucReceiveBuffer, xReceiveLength, pxContext->xRecvFlags );
+    return recv( (int) pxContext->xSocket, pucReceiveBuffer, xReceiveLength, pxContext->xRecvFlags );
 }
 /*-----------------------------------------------------------*/
 
@@ -129,7 +162,7 @@ int32_t SOCKETS_Close( Socket_t xSocket )
 
         /* Close the underlying socket handle. */
         //( void ) FreeRTOS_closesocket( pxContext->xSocket );  // Close a socket. https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/close.html
-        ( void ) closesocket( pxContext->xSocket ); 
+        ( void ) closesocket( (int)pxContext->xSocket ); 
         /* Free the context. */
         vPortFree( pxContext );
     }
@@ -418,7 +451,7 @@ int32_t SOCKETS_Shutdown( Socket_t xSocket,
     //return FreeRTOS_shutdown( pxContext->xSocket, ( BaseType_t ) ulHow );
     // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/shutdown.html
     // Disable reads and writes on a connected TCP socket. A connected TCP socket must be gracefully shut down before it can be closed.
-    return FreeRTOS_shutdown( pxContext->xSocket, ( BaseType_t ) ulHow );
+    return FreeRTOS_shutdown( (int) pxContext->xSocket, ( BaseType_t ) ulHow );
 }
 /*-----------------------------------------------------------*/
 
