@@ -79,43 +79,43 @@ typedef struct SSOCKETContext
 /*
  * @brief Network send callback.
  */
+
 static BaseType_t prvNetworkSend( void * pvContext,
-                                //  const unsigned char * pucData,
-                                    const void *pvBuffer,
+                                  const char * pucData,
+                                  //const unsigned char * pucData,
                                   size_t xDataLength )
 {
     SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) pvContext; /*lint !e9087 cast used for portability. */
 
-    //return FreeRTOS_send( pxContext->xSocket, pucData, xDataLength, pxContext->xSendFlags );    // Send data to a TCP Socket                                                                                              // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/send.html
-    return send( (int) pxContext->xSocket, pvBuffer, xDataLength, pxContext->xSendFlags );  // Berkely expects an int not a pointer
-                                                                                           // pucData 
+    //return FreeRTOS_send( pxContext->xSocket, pucData, xDataLength, pxContext->xSendFlags );
     
-    
-} 
-/*-----------------------------------------------------------*/
-// typedef int16_t SOCKET;   //Socket descriptor
-// int     send( SOCKET s, const char* buf, int len, int flags );
-// // BaseType_t FreeRTOS_send( Socket_t xSocket, const void *pvBuffer, size_t uxDataLength, BaseType_t xFlags );
-// pointer of type voide
+    return send( (int) pxContext->xSocket,  pucData   ,  xDataLength  ,pxContext->xSendFlags );
+}
 
+int     send( SOCKET s, const char* buf, int len, int flags );
+
+/*-----------------------------------------------------------*/
 
 /*
  * @brief Network receive callback.
  */
 static BaseType_t prvNetworkRecv( void * pvContext,
-                                  //unsigned char * pucReceiveBuffer,
-                                  void *pucReceiveBuffer,
+                                  //  unsigned char * pucReceiveBuffer,
+                                  char * pucReceiveBuffer,
                                   size_t xReceiveLength )
 {
     SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) pvContext; /*lint !e9087 cast used for portability. */
 
-    //return FreeRTOS_recv( pxContext->xSocket, pucReceiveBuffer, xReceiveLength, pxContext->xRecvFlags ); // receive a packete from a TCP socket
-                                                                                                         // https://www.freertos.org/FreeRTOS-Plus/FreeRTOS_Plus_TCP/API/recv.html
+    //return FreeRTOS_recv( pxContext->xSocket, pucReceiveBuffer, xReceiveLength, pxContext->xRecvFlags );
     return recv( (int) pxContext->xSocket, pucReceiveBuffer, xReceiveLength, pxContext->xRecvFlags );
 }
+
 /*-----------------------------------------------------------*/
 
+
+
 /*
+
  * Interface routines.
  */
 
@@ -178,6 +178,7 @@ int32_t SOCKETS_Connect( Socket_t xSocket,
     int32_t lStatus = SOCKETS_ERROR_NONE;
     SSOCKETContextPtr_t pxContext = ( SSOCKETContextPtr_t ) xSocket; /*lint !e9087 cast used for portability. */
     TLSParams_t xTLSParams = { 0 };
+    
     struct freertos_sockaddr xTempAddress = { 0 };
 
     if( ( pxContext != SOCKETS_INVALID_SOCKET ) && ( pxAddress != NULL ) )
@@ -187,7 +188,16 @@ int32_t SOCKETS_Connect( Socket_t xSocket,
         xTempAddress.sin_family = pxAddress->ucSocketDomain;
         xTempAddress.sin_len = ( uint8_t ) sizeof( xTempAddress );
         xTempAddress.sin_port = pxAddress->usPort;
-        lStatus = FreeRTOS_connect( pxContext->xSocket, &xTempAddress, xAddressLength );
+        
+        // lStatus = FreeRTOS_connect( pxContext->xSocket, &xTempAddress, xAddressLength );
+        
+       
+        
+        lStatus = connect( (int) pxContext->xSocket , (struct sockaddr*) &xTempAddress, xAddressLength);
+           
+        
+    
+    
 
         /* Negotiate TLS if requested. */
         if( ( SOCKETS_ERROR_NONE == lStatus ) && ( pdTRUE == pxContext->xRequireTLS ) )
